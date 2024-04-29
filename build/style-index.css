@@ -12,11 +12,11 @@
   color: #fff;
   padding: 2px;
   display: flex;
-  justify-content: space-around;
   flex-wrap: wrap;
+  gap: 40px;
+  justify-content: center;
 }
 .wp-block-create-block-profile-cards .profile-card {
-  background-color: rgb(114, 114, 114);
   height: 400px;
   width: 300px;
   text-align: center;

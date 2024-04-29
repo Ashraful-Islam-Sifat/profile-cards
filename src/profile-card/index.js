@@ -22,6 +22,17 @@ import Save from './save';
             type: "string",
             source: "html",
             selector: "p"
+        },
+        bgColor: {
+            type: "string",
+            default: "rgb(114, 114, 114)"
+        },
+        imageUrl: {
+            type: "string"
+        },
+        cardBorderRadious: {
+            type: "number",
+            default: 10
         }
     },
     edit:  Edit,

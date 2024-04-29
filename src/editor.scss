@@ -7,16 +7,19 @@
  .wp-block-create-block-profile-cards {
 	background-color: #06a4ee2f;
 	color: #fff;
-	padding: 2px;
+	margin: 0;
+	padding: 0;
+	display: block;
 	
 
 	> .block-editor-inner-blocks > .block-editor-block-list__layout{
 		display: flex;
-		justify-content: space-around;
+		justify-content: flex-start;
 		flex-wrap: wrap;
+		gap: 40px;
+		justify-content: center;
 	}
 	 .profile-card {
-		background-color: rgb(114, 114, 114);
 		height: 400px;
 		width: 300px;
 		text-align: center;

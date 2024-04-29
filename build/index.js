@@ -82,8 +82,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+
 
 
 
@@ -93,7 +96,10 @@ function Edit({
 }) {
   const {
     name,
-    bio
+    bio,
+    bgColor,
+    imageUrl,
+    cardBorderRadious
   } = attributes;
   const onChangeName = newName => {
     setAttributes({
@@ -105,27 +111,68 @@ function Edit({
       bio: newBio
     });
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  const onChangeimgUrl = newUrl => {
+    setAttributes({
+      imageUrl: newUrl
+    });
+  };
+  const onChangeBgColor = newColor => {
+    setAttributes({
+      bgColor: newColor
+    });
+  };
+  const onChangeCardBorderRadious = newValue => {
+    setAttributes({
+      cardBorderRadious: newValue
+    });
+  };
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Profile Image', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Profile Image', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Image URL', 'profile-cards'),
+    onChange: onChangeimgUrl,
+    value: imageUrl
+  }), imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Image Settings', 'profile-cards')
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Card Container', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Border Radious', 'profile-cards'),
+    min: 0,
+    max: 100,
+    onChange: onChangeCardBorderRadious,
+    value: cardBorderRadious
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Background Color', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    onChange: onChangeBgColor,
+    allowReset: true
+  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "profile-card-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "profile-card"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: "https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=826&t=st=1714124064~exp=1714124664~hmac=af399b71c35f0c5717b97c08fb691e3a6a600a871cfc40b322863a965790e122"
+    className: "profile-card",
+    style: {
+      backgroundColor: bgColor,
+      borderRadius: cardBorderRadious
+    }
+  }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: imageUrl
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Name', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'profile-cards'),
     tagName: "h4",
     onChange: onChangeName,
     value: name,
     allowedFormats: ['core/bold', 'core/italic']
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Bio', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Bio', 'profile-cards'),
     tagName: "p",
     onChange: onChangeBio,
     value: bio,
     allowedFormats: []
-  }))));
+  })))));
 }
 
 /***/ }),
@@ -166,6 +213,17 @@ __webpack_require__.r(__webpack_exports__);
       type: "string",
       source: "html",
       selector: "p"
+    },
+    bgColor: {
+      type: "string",
+      default: "rgb(114, 114, 114)"
+    },
+    imageUrl: {
+      type: "string"
+    },
+    cardBorderRadious: {
+      type: "number",
+      default: 10
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -195,16 +253,21 @@ function Save({
 }) {
   const {
     name,
-    bio
+    bio,
+    bgColor,
+    imageUrl
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "profile-card-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "profile-card"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: "https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=826&t=st=1714124064~exp=1714124664~hmac=af399b71c35f0c5717b97c08fb691e3a6a600a871cfc40b322863a965790e122"
+    className: "profile-card",
+    style: {
+      backgroundColor: bgColor
+    }
+  }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+    src: imageUrl
   }), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: "h4",
     value: name
@@ -291,6 +354,16 @@ module.exports = window["wp"]["blockEditor"];
 /***/ ((module) => {
 
 module.exports = window["wp"]["blocks"];
+
+/***/ }),
+
+/***/ "@wordpress/components":
+/*!************************************!*\
+  !*** external ["wp","components"] ***!
+  \************************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["components"];
 
 /***/ }),
 

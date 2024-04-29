@@ -1,40 +1,91 @@
-import { useBlockProps, RichText } from '@wordpress/block-editor';
+import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
+import { PanelBody, ColorPicker, TextControl, RangeControl } from '@wordpress/components'; 
 import { __ } from '@wordpress/i18n';
 
 export default function Edit( {attributes, setAttributes} ) {
 
-    const { name, bio } = attributes;
+    const { name, bio, bgColor, imageUrl, cardBorderRadious } = attributes;
 
-    const onChangeName = (newName) => {
-        setAttributes({name: newName})
+    const onChangeName = ( newName ) => {
+        setAttributes( { name: newName } )
     };
 
-    const onChangeBio = (newBio) => {
-        setAttributes({bio: newBio})
+    const onChangeBio = ( newBio ) => {
+        setAttributes( { bio: newBio } )
     };
+
+    const onChangeimgUrl = ( newUrl ) => {
+        setAttributes( { imageUrl: newUrl } )
+    }
+
+    const onChangeBgColor = ( newColor ) => {
+        setAttributes( { bgColor: newColor } )
+    }
+
+    const onChangeCardBorderRadious = ( newValue ) => {
+        setAttributes( { cardBorderRadious: newValue } )
+    }
     
     return (
-        <div { ...useBlockProps() } >
-            <div className="profile-card-wrapper">
-                <div className="profile-card">
-                    <img src="https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=826&t=st=1714124064~exp=1714124664~hmac=af399b71c35f0c5717b97c08fb691e3a6a600a871cfc40b322863a965790e122"/>
-                    <RichText 
-                        placeholder={ __('Name', 'profile-cards') }
-                        tagName='h4'
-                        onChange={ onChangeName }
-                        value={ name }
-                        allowedFormats={['core/bold', 'core/italic']}
-                    />
-                    <RichText 
-                        placeholder={ __('Bio', 'profile-cards') }
-                        tagName='p'
-                        onChange={onChangeBio}
-                        value={bio}
-                        allowedFormats={[ ]}
-                    />
-                </div>
+        <>
+        <InspectorControls>
+
+            <PanelBody title={__('Profile Image', 'profile-cards')}>
+                <TextControl 
+                    label={__('Profile Image', 'profile-cards')}
+                    placeholder= {__('Image URL', 'profile-cards')}
+                    onChange= { onChangeimgUrl }
+                    value={ imageUrl }
+                />
+
+                { imageUrl &&
+                <PanelBody title={__('Image Settings', 'profile-cards')}>
+
+                </PanelBody>
+                }
+
+            </PanelBody>
+
+            <PanelBody title={__('Card Container', 'profile-cards')}>
+
+                <RangeControl 
+                    label= {__('Border Radious', 'profile-cards')}
+                    min= { 0 }
+                    max={ 100 }
+                    onChange={ onChangeCardBorderRadious }
+                    value={ cardBorderRadious }
+                />
+                
+                <PanelBody title={__('Background Color', 'profile-cards')}>
+
+                    <ColorPicker onChange={ onChangeBgColor } allowReset={true} />
+
+                </PanelBody>
+                
+            </PanelBody>
             
+        </InspectorControls>
+            <div { ...useBlockProps() } >
+                <div className="profile-card-wrapper">
+                    <div className="profile-card" style={{ backgroundColor: bgColor , borderRadius: cardBorderRadious}}>                    
+                        { imageUrl && <img src={ imageUrl } /> }
+                        <RichText 
+                            placeholder={ __('Name', 'profile-cards') }
+                            tagName='h4'
+                            onChange={ onChangeName }
+                            value={ name }
+                            allowedFormats={['core/bold', 'core/italic']}
+                        />
+                        <RichText 
+                            placeholder={ __('Bio', 'profile-cards') }
+                            tagName='p'
+                            onChange={onChangeBio}
+                            value={bio}
+                            allowedFormats={[ ]}
+                        />
+                    </div>
+                </div>
             </div>
-        </div>
+       </>
     )
 }
