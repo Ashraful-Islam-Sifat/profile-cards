@@ -12,6 +12,12 @@
 		"html": false,
 		"align": ["wide", "full"]
 	},
+	"attributes": {
+		"columns": {
+			"type": "number",
+			"default": 3
+		}
+	},
 	"textdomain": "profile-cards",
 	"editorScript": "file:./index.js",
 	"editorStyle": "file:./index.css",

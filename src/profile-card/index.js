@@ -10,7 +10,8 @@ import Save from './save';
     icon: 'admin-users',
     supports: {
         reusable: false,
-        html: false
+        html: false,
+        align: [ 'left', 'right', 'center' ]
     },
     attributes: {
         name: {
@@ -28,11 +29,29 @@ import Save from './save';
             default: "rgb(114, 114, 114)"
         },
         imageUrl: {
-            type: "string"
+            type: "string",
+            default: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
         },
-        cardBorderRadious: {
+        cardBorderRadius: {
             type: "number",
             default: 10
+        },
+        hasShadow: {
+            type: "boolean",
+            default: false
+        },
+        imageBorder: {
+            type: "object"
+        },
+        align: {
+            type: 'string',
+            default: 'center'
+        },
+        titleColor: {
+            type: 'string'
+        },
+        bioColor: {
+            type: 'string'
         }
     },
     edit:  Edit,

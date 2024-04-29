@@ -1,14 +1,6 @@
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
-
 .wp-block-create-block-profile-cards {
-	background-color: #06a4ee2f;
-	color: #fff;
-	padding: 2px;
+	margin: 0;
+	padding: 0;
 	display: flex;
 	flex-wrap: wrap;
 	gap: 40px;
@@ -17,14 +9,27 @@
 	 .profile-card {
 		height: 400px;
 		width: 300px;
-		text-align: center;
 		padding: 20px;
+
+		&.align-left{
+			text-align: left;
+		}
+		&.align-center{
+			text-align: center;
+		}
+		&.align-right{
+			text-align: right;
+		}
+	
+		&.has-shadow{
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.338);
+		}
 
 		> img {
 			width: 100px;
 			height: 100px;
 			border-radius: 100px;
-			border: 3px solid rgb(245, 185, 185);
+			
 		}
 	}
 }

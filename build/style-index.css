@@ -1,16 +1,9 @@
 /*!***************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[4].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[4].use[2]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[4].use[3]!./src/style.scss ***!
   \***************************************************************************************************************************************************************************************************************************************/
-/**
- * The following styles get applied both on the front of your site
- * and in the editor.
- *
- * Replace them with your own styles or remove the file completely.
- */
 .wp-block-create-block-profile-cards {
-  background-color: rgba(6, 164, 238, 0.1843137255);
-  color: #fff;
-  padding: 2px;
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
@@ -19,14 +12,24 @@
 .wp-block-create-block-profile-cards .profile-card {
   height: 400px;
   width: 300px;
-  text-align: center;
   padding: 20px;
+}
+.wp-block-create-block-profile-cards .profile-card.align-left {
+  text-align: left;
+}
+.wp-block-create-block-profile-cards .profile-card.align-center {
+  text-align: center;
+}
+.wp-block-create-block-profile-cards .profile-card.align-right {
+  text-align: right;
+}
+.wp-block-create-block-profile-cards .profile-card.has-shadow {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.338);
 }
 .wp-block-create-block-profile-cards .profile-card > img {
   width: 100px;
   height: 100px;
   border-radius: 100px;
-  border: 3px solid rgb(245, 185, 185);
 }
 
 /*# sourceMappingURL=style-index.css.map*/

@@ -18,15 +18,37 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _editor_scss__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./editor.scss */ "./src/editor.scss");
 
 
 
 
-function Edit() {
+
+function Edit({
+  attributes,
+  setAttributes
+}) {
+  const {
+    columns
+  } = attributes;
+  const onChangeColumns = newColumns => {
+    setAttributes({
+      columns: newColumns
+    });
+  };
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)()
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+    ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
+      className: `has-${columns}-columns`
+    })
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Columns', 'profile-cards'),
+    min: 1,
+    max: 6,
+    onChange: onChangeColumns,
+    value: columns
+  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
     allowedBlocks: ['create-block/profile-card'],
     orientation: "horizontal",
     template: [['create-block/profile-card'], ['create-block/profile-card'], ['create-block/profile-card']]
@@ -84,8 +106,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
-/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "@wordpress/element");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__);
+
 
 
 
@@ -99,7 +124,12 @@ function Edit({
     bio,
     bgColor,
     imageUrl,
-    cardBorderRadious
+    cardBorderRadius,
+    hasShadow,
+    imageBorder,
+    align,
+    titleColor,
+    bioColor
   } = attributes;
   const onChangeName = newName => {
     setAttributes({
@@ -121,58 +151,155 @@ function Edit({
       bgColor: newColor
     });
   };
-  const onChangeCardBorderRadious = newValue => {
+  const onChangeCardBorderRadius = newValue => {
     setAttributes({
-      cardBorderRadious: newValue
+      cardBorderRadius: newValue
     });
   };
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Profile Image', 'profile-cards')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Profile Image', 'profile-cards'),
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Image URL', 'profile-cards'),
-    onChange: onChangeimgUrl,
-    value: imageUrl
-  }), imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Image Settings', 'profile-cards')
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Card Container', 'profile-cards')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Border Radious', 'profile-cards'),
+  const onToggleShadow = value => {
+    setAttributes({
+      hasShadow: value
+    });
+  };
+  const onChangeImageBorder = newBorder => {
+    setAttributes({
+      imageBorder: newBorder
+    });
+  };
+  const onChangeTitileColor = newColor => {
+    setAttributes({
+      titleColor: newColor
+    });
+  };
+  const onChangeBioColor = newColor => {
+    setAttributes({
+      bioColor: newColor
+    });
+  };
+  const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('tab1');
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
+    className: "my-tab-panel",
+    activeClass: "active-tab",
+    onSelect: tabName => setActiveTab(tabName),
+    activeTab: activeTab,
+    orientation: "horizontal",
+    tabs: [{
+      name: 'card container',
+      title: 'Card Container',
+      className: 'tab-one'
+    }, {
+      name: 'card contents',
+      title: 'Card Contents',
+      className: 'tab-two'
+    }]
+  }, tab => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, tab.name === 'card container' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pc-tabs-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+    label: "Enable Box Shadow",
+    onChange: onToggleShadow,
+    checked: hasShadow
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Border Radious', 'profile-cards'),
     min: 0,
     max: 100,
-    onChange: onChangeCardBorderRadious,
-    value: cardBorderRadious
+    onChange: onChangeCardBorderRadius,
+    value: cardBorderRadius
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Background Color', 'profile-cards')
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Background Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    value: bgColor,
     onChange: onChangeBgColor,
     allowReset: true
-  })))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+  }))), tab.name === 'card contents' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "pc-tabs-content"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Profile Image', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image URL', 'profile-cards'),
+    onChange: onChangeimgUrl,
+    value: imageUrl,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Put a valid link here for inserting an image', 'profile-cards')
+  }), imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Border', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalBorderControl, {
+    colors: [{
+      color: '#fff',
+      name: 'White'
+    }, {
+      color: '#000',
+      name: 'Black'
+    }, {
+      color: '#e65054',
+      name: 'Red 40'
+    }, {
+      color: '#8a2424',
+      name: 'Red 70'
+    }, {
+      color: '#f2d675',
+      name: 'Yellow 10'
+    }, {
+      color: '#bd8600',
+      name: 'Yellow 40'
+    }],
+    onChange: onChangeImageBorder,
+    value: imageBorder
+  })), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Title Color', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
+    colors: [{
+      color: '#fff',
+      name: 'White'
+    }, {
+      color: '#000',
+      name: 'Black'
+    }],
+    onChange: onChangeTitileColor,
+    value: titleColor
+  })), bio && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bio Color', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
+    colors: [{
+      color: '#fff',
+      name: 'White'
+    }, {
+      color: '#000',
+      name: 'Black'
+    }],
+    onChange: onChangeBioColor,
+    value: bioColor
+  })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "profile-card-wrapper"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "profile-card",
+    className: `profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`,
     style: {
       backgroundColor: bgColor,
-      borderRadius: cardBorderRadious
+      borderRadius: cardBorderRadius
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: imageUrl
+    src: imageUrl,
+    style: imageBorder ? {
+      borderColor: imageBorder.color,
+      borderWidth: imageBorder.width,
+      borderStyle: imageBorder.style
+    } : {}
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Name', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Name', 'profile-cards'),
     tagName: "h4",
     onChange: onChangeName,
     value: name,
-    allowedFormats: ['core/bold', 'core/italic']
+    allowedFormats: ['core/bold', 'core/italic'],
+    style: {
+      color: titleColor
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Bio', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bio', 'profile-cards'),
     tagName: "p",
     onChange: onChangeBio,
     value: bio,
-    allowedFormats: []
-  })))));
+    allowedFormats: [],
+    style: {
+      color: bioColor
+    }
+  }))));
 }
 
 /***/ }),
@@ -201,7 +328,8 @@ __webpack_require__.r(__webpack_exports__);
   icon: 'admin-users',
   supports: {
     reusable: false,
-    html: false
+    html: false,
+    align: ['left', 'right', 'center']
   },
   attributes: {
     name: {
@@ -219,11 +347,29 @@ __webpack_require__.r(__webpack_exports__);
       default: "rgb(114, 114, 114)"
     },
     imageUrl: {
-      type: "string"
+      type: "string",
+      default: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
     },
-    cardBorderRadious: {
+    cardBorderRadius: {
       type: "number",
       default: 10
+    },
+    hasShadow: {
+      type: "boolean",
+      default: false
+    },
+    imageBorder: {
+      type: "object"
+    },
+    align: {
+      type: 'string',
+      default: 'center'
+    },
+    titleColor: {
+      type: 'string'
+    },
+    bioColor: {
+      type: 'string'
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -255,25 +401,43 @@ function Save({
     name,
     bio,
     bgColor,
-    imageUrl
+    imageUrl,
+    cardBorderRadius,
+    hasShadow,
+    imageBorder,
+    align,
+    titleColor,
+    bioColor
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "profile-card-wrapper"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "profile-card",
+    className: `profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`,
     style: {
-      backgroundColor: bgColor
+      backgroundColor: bgColor,
+      borderRadius: cardBorderRadius
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
-    src: imageUrl
+    src: imageUrl,
+    style: imageBorder ? {
+      borderColor: imageBorder.color,
+      borderWidth: imageBorder.width,
+      borderStyle: imageBorder.style
+    } : {}
   }), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: "h4",
-    value: name
+    value: name,
+    style: {
+      color: titleColor
+    }
   }), bio && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: "p",
-    value: bio
+    value: bio,
+    style: {
+      color: bioColor
+    }
   }))));
 }
 
@@ -367,6 +531,16 @@ module.exports = window["wp"]["components"];
 
 /***/ }),
 
+/***/ "@wordpress/element":
+/*!*********************************!*\
+  !*** external ["wp","element"] ***!
+  \*********************************/
+/***/ ((module) => {
+
+module.exports = window["wp"]["element"];
+
+/***/ }),
+
 /***/ "@wordpress/i18n":
 /*!******************************!*\
   !*** external ["wp","i18n"] ***!
@@ -383,7 +557,7 @@ module.exports = window["wp"]["i18n"];
   \************************/
 /***/ ((module) => {
 
-module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/profile-cards","version":"0.1.0","title":"Profile Cards","category":"media","icon":"id","description":"A profile cards block","example":{},"supports":{"html":false,"align":["wide","full"]},"textdomain":"profile-cards","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
+module.exports = /*#__PURE__*/JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","apiVersion":3,"name":"create-block/profile-cards","version":"0.1.0","title":"Profile Cards","category":"media","icon":"id","description":"A profile cards block","example":{},"supports":{"html":false,"align":["wide","full"]},"attributes":{"columns":{"type":"number","default":3}},"textdomain":"profile-cards","editorScript":"file:./index.js","editorStyle":"file:./index.css","style":"file:./style-index.css","viewScript":"file:./view.js"}');
 
 /***/ })
 
