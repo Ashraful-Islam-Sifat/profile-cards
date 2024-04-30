@@ -7,29 +7,33 @@
 	justify-content: center;
 
 	 .profile-card {
-		height: 400px;
-		width: 300px;
-		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		gap: 20px;
+		overflow: hidden;
 
 		&.align-left{
-			text-align: left;
+			align-items: flex-start;
 		}
 		&.align-center{
-			text-align: center;
+			align-items: center;
 		}
 		&.align-right{
-			text-align: right;
+			align-items: flex-end;
 		}
 	
 		&.has-shadow{
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.338);
 		}
 
-		> img {
-			width: 100px;
-			height: 100px;
-			border-radius: 100px;
-			
+		>img {
+			object-fit: cover ;
+			object-position: center top;
+		}
+		> p {
+			margin: 0;
+			padding: 0;
 		}
 	}
 }

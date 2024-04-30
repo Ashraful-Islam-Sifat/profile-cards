@@ -42,13 +42,7 @@ function Edit({
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.useBlockProps)({
       className: `has-${columns}-columns`
     })
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.PanelBody, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.RangeControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Columns', 'profile-cards'),
-    min: 1,
-    max: 6,
-    onChange: onChangeColumns,
-    value: columns
-  }))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.InnerBlocks, {
     allowedBlocks: ['create-block/profile-card'],
     orientation: "horizontal",
     template: [['create-block/profile-card'], ['create-block/profile-card'], ['create-block/profile-card']]
@@ -129,7 +123,13 @@ function Edit({
     imageBorder,
     align,
     titleColor,
-    bioColor
+    bioColor,
+    cardHeight,
+    cardWidth,
+    imageBorderRadius,
+    imageHeight,
+    imageWidth,
+    cardPadding
   } = attributes;
   const onChangeName = newName => {
     setAttributes({
@@ -166,6 +166,7 @@ function Edit({
       imageBorder: newBorder
     });
   };
+  console.log(imageBorder);
   const onChangeTitileColor = newColor => {
     setAttributes({
       titleColor: newColor
@@ -176,8 +177,44 @@ function Edit({
       bioColor: newColor
     });
   };
-  const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('tab1');
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
+  const onChangeCardHeight = newHeight => {
+    setAttributes({
+      cardHeight: newHeight
+    });
+  };
+  const onChangeCardWidth = newWidth => {
+    setAttributes({
+      cardWidth: newWidth
+    });
+  };
+  const onChangeImgBorderRadius = newValue => {
+    setAttributes({
+      imageBorderRadius: newValue
+    });
+  };
+  const onChangeImgHeight = newHeight => {
+    setAttributes({
+      imageHeight: newHeight
+    });
+  };
+  const onChangeImgWidth = newWidth => {
+    setAttributes({
+      imageWidth: newWidth
+    });
+  };
+  const onChangeCardPadding = newPadding => {
+    setAttributes({
+      cardPadding: newPadding
+    });
+  };
+  const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('card container');
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Profile Image', 'profile-cards'),
+    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image URL', 'profile-cards'),
+    onChange: onChangeimgUrl,
+    value: imageUrl,
+    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Put a valid link here for inserting an image', 'profile-cards')
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TabPanel, {
     className: "my-tab-panel",
     activeClass: "active-tab",
     onSelect: tabName => setActiveTab(tabName),
@@ -194,12 +231,28 @@ function Edit({
     }]
   }, tab => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelRow, null, tab.name === 'card container' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "pc-tabs-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
-    label: "Enable Box Shadow",
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Height (px)', 'profile-cards'),
+    min: 150,
+    max: 600,
+    onChange: onChangeCardHeight,
+    value: cardHeight
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Width (px)', 'profile-cards'),
+    min: 100,
+    max: 500,
+    onChange: onChangeCardWidth,
+    value: cardWidth
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalBoxControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Padding (px)', 'profile-cards'),
+    onChange: onChangeCardPadding,
+    values: cardPadding
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ToggleControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Enable Box Shadow'),
     onChange: onToggleShadow,
     checked: hasShadow
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Border Radious', 'profile-cards'),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Border Radious (px)', 'profile-cards'),
     min: 0,
     max: 100,
     onChange: onChangeCardBorderRadius,
@@ -212,15 +265,22 @@ function Edit({
     allowReset: true
   }))), tab.name === 'card contents' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "pc-tabs-content"
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Profile Image', 'profile-cards'),
-    placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image URL', 'profile-cards'),
-    onChange: onChangeimgUrl,
-    value: imageUrl,
-    help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Put a valid link here for inserting an image', 'profile-cards')
-  }), imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Border', 'profile-cards')
-  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalBorderControl, {
+  }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Settings', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Height (px)', 'profile-cards'),
+    min: 0,
+    max: 400,
+    onChange: onChangeImgHeight,
+    value: imageHeight
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Width (px)', 'profile-cards'),
+    min: 0,
+    max: 400,
+    onChange: onChangeImgWidth,
+    value: imageWidth
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalBorderControl, {
+    label: "Image Border",
     colors: [{
       color: '#fff',
       name: 'White'
@@ -242,6 +302,12 @@ function Edit({
     }],
     onChange: onChangeImageBorder,
     value: imageBorder
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Border Radious (px)', 'profile-cards'),
+    min: 0,
+    max: 100,
+    onChange: onChangeImgBorderRadius,
+    value: imageBorderRadius
   })), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Title Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
@@ -272,15 +338,24 @@ function Edit({
     className: `profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`,
     style: {
       backgroundColor: bgColor,
-      borderRadius: cardBorderRadius
+      borderRadius: cardBorderRadius,
+      width: cardWidth,
+      height: cardHeight,
+      paddingTop: cardPadding ? cardPadding.top + 'px' : undefined,
+      paddingBottom: cardPadding ? cardPadding.bottom + 'px' : undefined,
+      paddingLeft: cardPadding ? cardPadding.left + 'px' : undefined,
+      paddingRight: cardPadding ? cardPadding.right + 'px' : undefined
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
-    style: imageBorder ? {
-      borderColor: imageBorder.color,
-      borderWidth: imageBorder.width,
-      borderStyle: imageBorder.style
-    } : {}
+    style: {
+      borderColor: imageBorder ? imageBorder.color + 'px' : undefined,
+      borderWidth: imageBorder ? imageBorder.width + 'px' : undefined,
+      borderStyle: imageBorder ? imageBorder.style + 'px' : undefined,
+      borderRadius: imageBorderRadius,
+      width: imageWidth,
+      height: imageHeight
+    }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText, {
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Name', 'profile-cards'),
     tagName: "h4",
@@ -350,16 +425,38 @@ __webpack_require__.r(__webpack_exports__);
       type: "string",
       default: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
     },
+    cardHeight: {
+      type: "number",
+      default: 400
+    },
+    cardWidth: {
+      type: "number",
+      default: 300
+    },
     cardBorderRadius: {
       type: "number",
       default: 10
+    },
+    cardPadding: {
+      type: 'object'
     },
     hasShadow: {
       type: "boolean",
       default: false
     },
+    imageHeight: {
+      type: "number",
+      default: 120
+    },
+    imageWidth: {
+      type: "number",
+      default: 120
+    },
     imageBorder: {
       type: "object"
+    },
+    imageBorderRadius: {
+      type: "number"
     },
     align: {
       type: 'string',
@@ -402,12 +499,17 @@ function Save({
     bio,
     bgColor,
     imageUrl,
+    cardWidth,
+    cardHeight,
     cardBorderRadius,
     hasShadow,
     imageBorder,
     align,
     titleColor,
-    bioColor
+    bioColor,
+    imageBorderRadius,
+    imageWidth,
+    imageHeight
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
@@ -417,15 +519,20 @@ function Save({
     className: `profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`,
     style: {
       backgroundColor: bgColor,
-      borderRadius: cardBorderRadius
+      borderRadius: cardBorderRadius,
+      width: cardWidth,
+      height: cardHeight
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
-    style: imageBorder ? {
-      borderColor: imageBorder.color,
-      borderWidth: imageBorder.width,
-      borderStyle: imageBorder.style
-    } : {}
+    style: {
+      borderColor: imageBorder ? imageBorder.color : undefined,
+      borderWidth: imageBorder ? imageBorder.width : undefined,
+      borderStyle: imageBorder ? imageBorder.style : undefined,
+      borderRadius: imageBorderRadius,
+      width: imageWidth,
+      height: imageHeight
+    }
   }), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.RichText.Content, {
     tagName: "h4",
     value: name,

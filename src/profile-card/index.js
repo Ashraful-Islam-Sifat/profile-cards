@@ -32,16 +32,38 @@ import Save from './save';
             type: "string",
             default: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"
         },
+        cardHeight: {
+            type: "number",
+            default: 400
+        },
+        cardWidth: {
+            type: "number",
+            default: 300
+        },
         cardBorderRadius: {
             type: "number",
             default: 10
+        },
+        cardPadding: {
+            type: 'object'
         },
         hasShadow: {
             type: "boolean",
             default: false
         },
+        imageHeight: {
+            type: "number",
+            default: 120
+        },
+        imageWidth: {
+            type: "number",
+            default: 120
+        },
         imageBorder: {
             type: "object"
+        },
+        imageBorderRadius: {
+            type: "number"
         },
         align: {
             type: 'string',

@@ -10,26 +10,33 @@
   justify-content: center;
 }
 .wp-block-create-block-profile-cards .profile-card {
-  height: 400px;
-  width: 300px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 20px;
+  overflow: hidden;
 }
 .wp-block-create-block-profile-cards .profile-card.align-left {
-  text-align: left;
+  align-items: flex-start;
 }
 .wp-block-create-block-profile-cards .profile-card.align-center {
-  text-align: center;
+  align-items: center;
 }
 .wp-block-create-block-profile-cards .profile-card.align-right {
-  text-align: right;
+  align-items: flex-end;
 }
 .wp-block-create-block-profile-cards .profile-card.has-shadow {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.338);
 }
 .wp-block-create-block-profile-cards .profile-card > img {
-  width: 100px;
-  height: 100px;
-  border-radius: 100px;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center top;
+     object-position: center top;
+}
+.wp-block-create-block-profile-cards .profile-card > p {
+  margin: 0;
+  padding: 0;
 }
 
 /*# sourceMappingURL=style-index.css.map*/

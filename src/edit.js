@@ -15,17 +15,7 @@ export default function Edit({attributes, setAttributes}) {
 		<div { ...useBlockProps( {
 			className: `has-${ columns }-columns`,
 		} ) }>
-			<InspectorControls>
-			    <PanelBody>
-					<RangeControl
-					    label={ __('Columns', 'profile-cards') }
-						min={ 1 }
-						max={6}
-						onChange={ onChangeColumns }
-						value={ columns }
-					/>
-				</PanelBody>
-			</InspectorControls>
+
 			<InnerBlocks 
 			    allowedBlocks={ [ 'create-block/profile-card' ] } 
 				orientation='horizontal'
