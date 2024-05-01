@@ -38,4 +38,21 @@
   padding: 20px;
 }
 
+.pc-sidebar-preview-img-style {
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center top;
+     object-position: center top;
+  height: 100px;
+  width: 100px;
+}
+
+.my-tab-panel {
+  margin-top: 20px;
+}
+
+.editor-post-featured-image {
+  margin-bottom: 20px;
+}
+
 /*# sourceMappingURL=index.css.map*/

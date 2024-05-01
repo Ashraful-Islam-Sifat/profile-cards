@@ -118,6 +118,7 @@ function Edit({
     bio,
     bgColor,
     imageUrl,
+    imageId,
     cardBorderRadius,
     hasShadow,
     imageBorder,
@@ -161,12 +162,16 @@ function Edit({
       hasShadow: value
     });
   };
+  const onRemoveImage = () => {
+    setAttributes({
+      imageUrl: ''
+    });
+  };
   const onChangeImageBorder = newBorder => {
     setAttributes({
       imageBorder: newBorder
     });
   };
-  console.log(imageBorder);
   const onChangeTitileColor = newColor => {
     setAttributes({
       titleColor: newColor
@@ -207,9 +212,43 @@ function Edit({
       cardPadding: newPadding
     });
   };
+  console.log(imageId);
+  const onSelectImage = newImage => {
+    if (!newImage || !newImage.url) {
+      setAttributes({
+        imageUrl: undefined,
+        imageId: undefined
+      });
+      return;
+    }
+    setAttributes({
+      imageId: newImage.id,
+      imageUrl: newImage.url
+    });
+  };
+  console.log(imageId);
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('card container');
-  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Profile Image', 'profile-cards'),
+  return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "editor-post-featured-image"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUpload, {
+    onSelect: onSelectImage,
+    value: imageId,
+    allowedTypes: ['image'],
+    render: ({
+      open
+    }) => (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+      className: imageId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview',
+      onClick: open
+    }, imageUrl == 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg' || imageUrl == undefined || imageUrl == '' ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)(' + Choose an Image', 'profile-cards') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Replace Image', 'profile-cards'), imageUrl != undefined && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
+      className: "pc-sidebar-preview-img-style",
+      src: imageUrl
+    }))
+  })), imageUrl !== 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg' && imageUrl !== undefined && imageUrl !== '' ? (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.MediaUploadCheck, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    onClick: onRemoveImage,
+    isLink: true,
+    isDestructive: true
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Remove image', 'profile cards'))) : null), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Link', 'profile-cards'),
     placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image URL', 'profile-cards'),
     onChange: onChangeimgUrl,
     value: imageUrl,
@@ -420,6 +459,10 @@ __webpack_require__.r(__webpack_exports__);
     bgColor: {
       type: "string",
       default: "rgb(114, 114, 114)"
+    },
+    imageId: {
+      type: "number",
+      default: 0
     },
     imageUrl: {
       type: "string",

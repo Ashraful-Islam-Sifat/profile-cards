@@ -28,6 +28,10 @@ import Save from './save';
             type: "string",
             default: "rgb(114, 114, 114)"
         },
+        imageId: {
+            type: "number",
+            default: 0
+        },
         imageUrl: {
             type: "string",
             default: "https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg"

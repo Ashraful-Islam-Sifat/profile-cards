@@ -1,11 +1,11 @@
-import { useBlockProps, RichText, InspectorControls } from '@wordpress/block-editor';
-import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, __experimentalBoxControl as BoxControl } from '@wordpress/components'; 
+import { useBlockProps, RichText, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
+import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, __experimentalBoxControl as BoxControl, Button, ResponsiveWrapper } from '@wordpress/components'; 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit( {attributes, setAttributes} ) {
 
-    const { name, bio, bgColor, imageUrl, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, cardHeight, cardWidth, imageBorderRadius, imageHeight, imageWidth, cardPadding } = attributes;
+    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, cardHeight, cardWidth, imageBorderRadius, imageHeight, imageWidth, cardPadding } = attributes;
 
     const onChangeName = ( newName ) => {
         setAttributes( { name: newName } )
@@ -31,52 +31,105 @@ export default function Edit( {attributes, setAttributes} ) {
         setAttributes( { hasShadow: value } )
     };
 
-    const onChangeImageBorder = ( newBorder ) => {
-        setAttributes( { imageBorder: newBorder } )
+    const onRemoveImage = () => {
+        setAttributes({ imageUrl: ''} )
     }
 
-    console.log(imageBorder);
+    const onChangeImageBorder = ( newBorder ) => {
+        setAttributes( { imageBorder: newBorder } )
+    };
 
     const onChangeTitileColor = ( newColor ) => {
         setAttributes( { titleColor: newColor } )
-    }
+    };
 
     const onChangeBioColor = ( newColor ) => {
         setAttributes( { bioColor: newColor } )
-    }
+    };
 
     const onChangeCardHeight = ( newHeight ) => {
         setAttributes( { cardHeight: newHeight } )
-    }
+    };
 
     const onChangeCardWidth = ( newWidth ) => {
         setAttributes( { cardWidth: newWidth } )
-    }
+    };
 
     const onChangeImgBorderRadius = ( newValue ) => {
         setAttributes( { imageBorderRadius: newValue } )
-    }
+    };
 
     const onChangeImgHeight = ( newHeight ) => {
         setAttributes( { imageHeight: newHeight } )
-    }
+    };
 
     const onChangeImgWidth = ( newWidth ) => {
         setAttributes( { imageWidth: newWidth } )
-    }
+    };
 
     const onChangeCardPadding = ( newPadding ) => {
         setAttributes( { cardPadding: newPadding } )
-    }
-   
-   
+    };
+
+    console.log(imageId);
+
+    const onSelectImage = ( newImage ) => {
+        if( !newImage || !newImage.url ) {
+            setAttributes( { imageUrl: undefined, imageId: undefined } );
+            return;
+        }
+        setAttributes( { imageId:newImage.id, imageUrl:newImage.url } )
+    };
+   console.log(imageId);
     const [activeTab, setActiveTab] = useState('card container');
     return (
         <>
         <InspectorControls>
+            
+            <div className='editor-post-featured-image'>
+                <MediaUploadCheck>
+
+                    <MediaUpload
+                        onSelect={ onSelectImage }
+                        value={ imageId }
+                        allowedTypes={ ['image'] }
+                        render={({ open }) => (
+                            <Button 
+                                className={imageId == 0 ? 'editor-post-featured-image__toggle' : 'editor-post-featured-image__preview'}
+                                onClick={open}
+                            >
+                                {
+                                    (imageUrl == 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg' || imageUrl == undefined || imageUrl == '')
+                                        ? __(' + Choose an Image', 'profile-cards')
+                                        : __('Replace Image', 'profile-cards')
+                                }
+                                {imageUrl != undefined && 
+                                    <img className='pc-sidebar-preview-img-style' src={imageUrl} />
+                                }
+                            </Button>
+                        )}
+                    />
+        
+                </MediaUploadCheck>
+
+                {
+                    (imageUrl !== 'https://st3.depositphotos.com/9998432/13335/v/450/depositphotos_133351928-stock-illustration-default-placeholder-man-and-woman.jpg' && imageUrl !== undefined && imageUrl !== '')                
+
+                        ? (
+                            <MediaUploadCheck>
+                                <Button onClick={onRemoveImage}  isLink isDestructive>
+                                    {__('Remove image', 'profile cards')}
+                                </Button>
+                            </MediaUploadCheck>
+                        )
+                        : null
+                }
+            </div>
+
+        
 
         <TextControl 
-            label={__('Profile Image', 'profile-cards')}
+            label={__('Image Link', 'profile-cards')}
             placeholder= {__('Image URL', 'profile-cards')}
             onChange= { onChangeimgUrl }
             value={ imageUrl }
