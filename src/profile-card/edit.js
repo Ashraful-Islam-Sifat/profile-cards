@@ -1,9 +1,9 @@
 import { useBlockProps, RichText, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, ColorIndicator, __experimentalBoxControl as BoxControl, Button, Icon } from '@wordpress/components'; 
+import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, ColorIndicator, __experimentalBoxControl as BoxControl, Button, Icon, Tooltip } from '@wordpress/components'; 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export default function Edit( {attributes, setAttributes} ) {
+export default function Edit( {attributes, setAttributes, isSelected} ) {
 
     const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, socialLinks } = attributes;
 
@@ -78,6 +78,14 @@ export default function Edit( {attributes, setAttributes} ) {
     const onChangeImageBorder = ( newBorder ) => {
         setAttributes( {imageBorder: newBorder} )
     };
+
+    const addNewSocialLink = ( newIcon ) => {
+        setAttributes( { 
+            socialLinks : [ ...socialLinks, { icon: 'wordpress', link: '' } ]
+         } )
+    }
+
+    // const [selectedLink, setSelectedLink] = useState(); the next feature
 
     const [activeTab, setActiveTab] = useState('card container');
     
@@ -348,19 +356,32 @@ export default function Edit( {attributes, setAttributes} ) {
                             style={ {color: bioColor} }
                         />
 
-                        <div className='wp-block-create-block-profile-cards'>
+                        <div className='wp-block-create-block-profile-cards-socialLinks'>
                             <ul>
 
                                 {
                                     socialLinks.map( (item, index) => {
+
                                         return (
+
                                         <li key={index}>
-                                            <Icon icon= {item.icon} />
+                                            <Icon style={{color: 'white'}} icon= {item.icon} />
                                         </li>
+                                        
                                         )
                                     } )
 
 
+                                }
+
+                                { isSelected &&
+                                <li className='wp-block-create-block-profile-cards-add-icon-li'>
+                                    <Tooltip text={__('Add Social Icon', 'profile-cards')}>
+                                        <button onClick={ addNewSocialLink } aria-label={__('Add Socia Link', 'profile-cads')}>
+                                            <Icon icon='plus' />
+                                        </button>
+                                    </Tooltip>
+                                </li>
                                 }
 
                             </ul>

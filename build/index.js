@@ -111,7 +111,8 @@ __webpack_require__.r(__webpack_exports__);
 
 function Edit({
   attributes,
-  setAttributes
+  setAttributes,
+  isSelected
 }) {
   const {
     name,
@@ -226,6 +227,17 @@ function Edit({
       imageBorder: newBorder
     });
   };
+  const addNewSocialLink = newIcon => {
+    setAttributes({
+      socialLinks: [...socialLinks, {
+        icon: 'wordpress',
+        link: ''
+      }]
+    });
+  };
+
+  // const [selectedLink, setSelectedLink] = useState(); the next feature
+
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('card container');
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "editor-post-featured-image"
@@ -412,14 +424,26 @@ function Edit({
       color: bioColor
     }
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
-    className: "wp-block-create-block-profile-cards"
+    className: "wp-block-create-block-profile-cards-socialLinks"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, socialLinks.map((item, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       key: index
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+      style: {
+        color: 'white'
+      },
       icon: item.icon
     }));
-  }))))));
+  }), isSelected && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+    className: "wp-block-create-block-profile-cards-add-icon-li"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Tooltip, {
+    text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Add Social Icon', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("button", {
+    onClick: addNewSocialLink,
+    "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Add Socia Link', 'profile-cads')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+    icon: "plus"
+  })))))))));
 }
 
 /***/ }),

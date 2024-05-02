@@ -55,4 +55,16 @@
   margin-bottom: 20px;
 }
 
+.wp-block-create-block-profile-cards-socialLinks > ul {
+  display: flex;
+  gap: 10px;
+}
+.wp-block-create-block-profile-cards-socialLinks > ul > li {
+  list-style: none;
+}
+
+.wp-block-create-block-profile-cards-add-icon-li > button {
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=index.css.map*/
