@@ -49,7 +49,13 @@ import Save from './save';
             default: 10
         },
         cardPadding: {
-            type: 'object'
+            type: 'object',
+            default: {
+                top: 20,
+                bottom: 20,
+                left: 20,
+                right: 20
+            }
         },
         hasShadow: {
             type: "boolean",
@@ -63,8 +69,13 @@ import Save from './save';
             type: "number",
             default: 120
         },
-        imageBorder: {
-            type: "object"
+        imageBorder:{
+            type: 'object',
+            default: {
+                color: 'none',
+                width: '0px',
+                style: 'solid'
+            }
         },
         imageBorderRadius: {
             type: "number"
@@ -78,7 +89,14 @@ import Save from './save';
         },
         bioColor: {
             type: 'string'
-        }
+        },
+        socialLinks: {
+            type: 'array',
+            default: [
+                {link: 'https/:facebook.com', icon: 'facebook'},
+                {link: 'https/:instagram', icon: 'instagram'}
+            ]
+        },
     },
     edit:  Edit,
     save:  Save

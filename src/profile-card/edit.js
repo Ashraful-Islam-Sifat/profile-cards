@@ -1,11 +1,11 @@
 import { useBlockProps, RichText, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, __experimentalBoxControl as BoxControl, Button, ResponsiveWrapper } from '@wordpress/components'; 
+import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, ColorIndicator, __experimentalBoxControl as BoxControl, Button, Icon } from '@wordpress/components'; 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
 export default function Edit( {attributes, setAttributes} ) {
 
-    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, cardHeight, cardWidth, imageBorderRadius, imageHeight, imageWidth, cardPadding } = attributes;
+    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, socialLinks } = attributes;
 
     const onChangeName = ( newName ) => {
         setAttributes( { name: newName } )
@@ -34,10 +34,6 @@ export default function Edit( {attributes, setAttributes} ) {
     const onRemoveImage = () => {
         setAttributes({ imageUrl: ''} )
     }
-
-    const onChangeImageBorder = ( newBorder ) => {
-        setAttributes( { imageBorder: newBorder } )
-    };
 
     const onChangeTitileColor = ( newColor ) => {
         setAttributes( { titleColor: newColor } )
@@ -71,8 +67,6 @@ export default function Edit( {attributes, setAttributes} ) {
         setAttributes( { cardPadding: newPadding } )
     };
 
-    console.log(imageId);
-
     const onSelectImage = ( newImage ) => {
         if( !newImage || !newImage.url ) {
             setAttributes( { imageUrl: undefined, imageId: undefined } );
@@ -80,8 +74,13 @@ export default function Edit( {attributes, setAttributes} ) {
         }
         setAttributes( { imageId:newImage.id, imageUrl:newImage.url } )
     };
-   console.log(imageId);
+
+    const onChangeImageBorder = ( newBorder ) => {
+        setAttributes( {imageBorder: newBorder} )
+    };
+
     const [activeTab, setActiveTab] = useState('card container');
+    
     return (
         <>
         <InspectorControls>
@@ -195,7 +194,7 @@ export default function Edit( {attributes, setAttributes} ) {
                 
                                 <PanelBody title={__('Background Color', 'profile-cards')}>
                 
-                                    <ColorPicker value={ bgColor } onChange={ onChangeBgColor } allowReset={true} />
+                                    <ColorPicker enableAlpha value={ bgColor } onChange={ onChangeBgColor } allowReset={true} />
                 
                                 </PanelBody>
                             </div>
@@ -223,16 +222,15 @@ export default function Edit( {attributes, setAttributes} ) {
                                     value={ imageWidth }
                                 />
 
-                                <BorderControl 
-                                    label='Image Border'
+                                <BorderControl
                                     colors={[
                                       {
-                                        color: '#fff',
-                                        name: 'White'
+                                        color: '#72aee6',
+                                        name: 'Blue 20'
                                       },
                                       {
-                                        color: '#000',
-                                        name: 'Black'
+                                        color: '#3582c4',
+                                        name: 'Blue 40'
                                       },
                                       {
                                         color: '#e65054',
@@ -251,10 +249,10 @@ export default function Edit( {attributes, setAttributes} ) {
                                         name: 'Yellow 40'
                                       }
                                     ]}
-                                   onChange={ onChangeImageBorder }
-                                   value= { imageBorder }
-                                />
-
+                                    label="Borders"
+                                    onChange={ onChangeImageBorder }
+                                    value={ imageBorder }
+                                /> 
                                 <RangeControl 
                                     label= {__('Border Radious (px)', 'profile-cards')}
                                     min= { 0 }
@@ -265,7 +263,7 @@ export default function Edit( {attributes, setAttributes} ) {
 
                             </PanelBody>
                             }
-                            { name &&
+
                             <PanelBody title={__('Title Color', 'profile-cards')}>
                                 <ColorPalette
                                     colors={[
@@ -282,10 +280,7 @@ export default function Edit( {attributes, setAttributes} ) {
                                     value={ titleColor }
                                />
                             </PanelBody>
-                            
-                            }
 
-                            { bio &&
                             <PanelBody title={__('Bio Color', 'profile-cards')}>
                                 <ColorPalette
                                     colors={[
@@ -302,8 +297,7 @@ export default function Edit( {attributes, setAttributes} ) {
                                     value={ bioColor }
                                />
                             </PanelBody>
-                            
-                            } 
+
                             </div>
                         )}
                     </PanelRow>
@@ -319,24 +313,23 @@ export default function Edit( {attributes, setAttributes} ) {
                          borderRadius: cardBorderRadius, 
                          width: cardWidth, 
                          height: cardHeight, 
-                         paddingTop: cardPadding ? cardPadding.top+'px' : undefined,
-                         paddingBottom: cardPadding ? cardPadding.bottom+'px' : undefined,
-                         paddingLeft: cardPadding ? cardPadding.left+'px' : undefined,
-                         paddingRight: cardPadding ? cardPadding.right+'px' : undefined,
+                         paddingTop:  cardPadding.top+'px',
+                         paddingBottom: cardPadding.bottom+'px',
+                         paddingLeft: cardPadding.left+'px',
+                         paddingRight: cardPadding.right+'px',
                          }}
                     >                    
                         { imageUrl && 
                         <img 
                             src={imageUrl} 
                             style={{ 
-                                borderColor: imageBorder ? imageBorder.color+'px' : undefined, 
-                                borderWidth: imageBorder ? imageBorder.width+'px' : undefined, 
-                                borderStyle: imageBorder ? imageBorder.style+'px' : undefined,
-                                borderRadius: imageBorderRadius,
+                                border: `${imageBorder.width} ${imageBorder.style} ${imageBorder.color}`,
+                                borderRadius: imageBorderRadius || 0,
                                 width: imageWidth,
                                 height: imageHeight
                             }}
                         />
+                    
                          }
                         <RichText 
                             placeholder={ __('Name', 'profile-cards') }
@@ -354,6 +347,24 @@ export default function Edit( {attributes, setAttributes} ) {
                             allowedFormats={[ ]}
                             style={ {color: bioColor} }
                         />
+
+                        <div className='wp-block-create-block-profile-cards'>
+                            <ul>
+
+                                {
+                                    socialLinks.map( (item, index) => {
+                                        return (
+                                        <li key={index}>
+                                            <Icon icon= {item.icon} />
+                                        </li>
+                                        )
+                                    } )
+
+
+                                }
+
+                            </ul>
+                        </div>
                     </div>
                 {/* </div> */}
             </div>

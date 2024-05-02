@@ -121,16 +121,17 @@ function Edit({
     imageId,
     cardBorderRadius,
     hasShadow,
-    imageBorder,
     align,
     titleColor,
     bioColor,
     cardHeight,
     cardWidth,
+    imageBorder,
     imageBorderRadius,
     imageHeight,
     imageWidth,
-    cardPadding
+    cardPadding,
+    socialLinks
   } = attributes;
   const onChangeName = newName => {
     setAttributes({
@@ -165,11 +166,6 @@ function Edit({
   const onRemoveImage = () => {
     setAttributes({
       imageUrl: ''
-    });
-  };
-  const onChangeImageBorder = newBorder => {
-    setAttributes({
-      imageBorder: newBorder
     });
   };
   const onChangeTitileColor = newColor => {
@@ -212,7 +208,6 @@ function Edit({
       cardPadding: newPadding
     });
   };
-  console.log(imageId);
   const onSelectImage = newImage => {
     if (!newImage || !newImage.url) {
       setAttributes({
@@ -226,7 +221,11 @@ function Edit({
       imageUrl: newImage.url
     });
   };
-  console.log(imageId);
+  const onChangeImageBorder = newBorder => {
+    setAttributes({
+      imageBorder: newBorder
+    });
+  };
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('card container');
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "editor-post-featured-image"
@@ -299,6 +298,7 @@ function Edit({
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Background Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPicker, {
+    enableAlpha: true,
     value: bgColor,
     onChange: onChangeBgColor,
     allowReset: true
@@ -319,13 +319,12 @@ function Edit({
     onChange: onChangeImgWidth,
     value: imageWidth
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.__experimentalBorderControl, {
-    label: "Image Border",
     colors: [{
-      color: '#fff',
-      name: 'White'
+      color: '#72aee6',
+      name: 'Blue 20'
     }, {
-      color: '#000',
-      name: 'Black'
+      color: '#3582c4',
+      name: 'Blue 40'
     }, {
       color: '#e65054',
       name: 'Red 40'
@@ -339,6 +338,7 @@ function Edit({
       color: '#bd8600',
       name: 'Yellow 40'
     }],
+    label: "Borders",
     onChange: onChangeImageBorder,
     value: imageBorder
   }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
@@ -347,7 +347,7 @@ function Edit({
     max: 100,
     onChange: onChangeImgBorderRadius,
     value: imageBorderRadius
-  })), name && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Title Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
     colors: [{
@@ -359,7 +359,7 @@ function Edit({
     }],
     onChange: onChangeTitileColor,
     value: titleColor
-  })), bio && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bio Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
     colors: [{
@@ -380,18 +380,16 @@ function Edit({
       borderRadius: cardBorderRadius,
       width: cardWidth,
       height: cardHeight,
-      paddingTop: cardPadding ? cardPadding.top + 'px' : undefined,
-      paddingBottom: cardPadding ? cardPadding.bottom + 'px' : undefined,
-      paddingLeft: cardPadding ? cardPadding.left + 'px' : undefined,
-      paddingRight: cardPadding ? cardPadding.right + 'px' : undefined
+      paddingTop: cardPadding.top + 'px',
+      paddingBottom: cardPadding.bottom + 'px',
+      paddingLeft: cardPadding.left + 'px',
+      paddingRight: cardPadding.right + 'px'
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
     style: {
-      borderColor: imageBorder ? imageBorder.color + 'px' : undefined,
-      borderWidth: imageBorder ? imageBorder.width + 'px' : undefined,
-      borderStyle: imageBorder ? imageBorder.style + 'px' : undefined,
-      borderRadius: imageBorderRadius,
+      border: `${imageBorder.width} ${imageBorder.style} ${imageBorder.color}`,
+      borderRadius: imageBorderRadius || 0,
       width: imageWidth,
       height: imageHeight
     }
@@ -413,7 +411,15 @@ function Edit({
     style: {
       color: bioColor
     }
-  }))));
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
+    className: "wp-block-create-block-profile-cards"
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, socialLinks.map((item, index) => {
+    return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
+      key: index
+    }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
+      icon: item.icon
+    }));
+  }))))));
 }
 
 /***/ }),
@@ -481,7 +487,13 @@ __webpack_require__.r(__webpack_exports__);
       default: 10
     },
     cardPadding: {
-      type: 'object'
+      type: 'object',
+      default: {
+        top: 20,
+        bottom: 20,
+        left: 20,
+        right: 20
+      }
     },
     hasShadow: {
       type: "boolean",
@@ -496,7 +508,12 @@ __webpack_require__.r(__webpack_exports__);
       default: 120
     },
     imageBorder: {
-      type: "object"
+      type: 'object',
+      default: {
+        color: 'none',
+        width: '0px',
+        style: 'solid'
+      }
     },
     imageBorderRadius: {
       type: "number"
@@ -510,6 +527,16 @@ __webpack_require__.r(__webpack_exports__);
     },
     bioColor: {
       type: 'string'
+    },
+    socialLinks: {
+      type: 'array',
+      default: [{
+        link: 'https/:facebook.com',
+        icon: 'facebook'
+      }, {
+        link: 'https/:instagram',
+        icon: 'instagram'
+      }]
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -569,9 +596,7 @@ function Save({
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
     style: {
-      borderColor: imageBorder ? imageBorder.color : undefined,
-      borderWidth: imageBorder ? imageBorder.width : undefined,
-      borderStyle: imageBorder ? imageBorder.style : undefined,
+      border: `${imageBorder.width} ${imageBorder.style} ${imageBorder.color}`,
       borderRadius: imageBorderRadius,
       width: imageWidth,
       height: imageHeight

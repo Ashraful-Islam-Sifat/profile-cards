@@ -12,9 +12,7 @@ export default function Save({attributes}) {
                     <img 
                         src={imageUrl} 
                         style={{ 
-                            borderColor: imageBorder ? imageBorder.color : undefined, 
-                            borderWidth: imageBorder ? imageBorder.width : undefined, 
-                            borderStyle: imageBorder ? imageBorder.style : undefined,
+                            border: `${imageBorder.width} ${imageBorder.style} ${imageBorder.color}`,
                             borderRadius: imageBorderRadius,
                             width: imageWidth,
                             height: imageHeight

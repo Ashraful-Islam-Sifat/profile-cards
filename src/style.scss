@@ -18,6 +18,9 @@
 		}
 		&.align-center{
 			align-items: center;
+			>p{
+				text-align: center;
+			}
 		}
 		&.align-right{
 			align-items: flex-end;

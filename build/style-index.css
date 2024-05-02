@@ -22,6 +22,9 @@
 .wp-block-create-block-profile-cards .profile-card.align-center {
   align-items: center;
 }
+.wp-block-create-block-profile-cards .profile-card.align-center > p {
+  text-align: center;
+}
 .wp-block-create-block-profile-cards .profile-card.align-right {
   align-items: flex-end;
 }
