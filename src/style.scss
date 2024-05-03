@@ -12,6 +12,7 @@
 		justify-content: center;
 		gap: 20px;
 		overflow: hidden;
+		box-sizing: border-box;
 
 		&.align-left{
 			align-items: flex-start;

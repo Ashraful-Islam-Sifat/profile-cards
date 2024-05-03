@@ -15,6 +15,7 @@
   justify-content: center;
   gap: 20px;
   overflow: hidden;
+  box-sizing: border-box;
 }
 .wp-block-create-block-profile-cards .profile-card.align-left {
   align-items: flex-start;
