@@ -1,13 +1,24 @@
 import {useBlockProps, RichText} from "@wordpress/block-editor";
+import { Icon } from "@wordpress/components";
 
 export default function Save({attributes}) {
     
-    const { name, bio, bgColor, imageUrl, cardWidth, cardHeight, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, imageBorderRadius, imageWidth, imageHeight } = attributes;
+    const { name, bio, bgColor, imageUrl, cardWidth, cardHeight, cardPadding, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, imageBorderRadius, imageWidth, imageHeight, socialLinks, enableSocialLinks, socialIconsColor } = attributes;
 
     return (
         <div {...useBlockProps.save()}>
-            <div className="profile-card-wrapper">
-            <div className={`profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`}  style={{ backgroundColor: bgColor , borderRadius: cardBorderRadius, width: cardWidth, height: cardHeight}}>  
+            {/* <div className="profile-card-wrapper"> */}
+            <div className={`profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`}  style={{
+                        backgroundColor: bgColor, 
+                        borderRadius: cardBorderRadius, 
+                        width: cardWidth, 
+                        height: cardHeight, 
+                        paddingTop:  cardPadding.top+'px',
+                        paddingBottom: cardPadding.bottom+'px',
+                        paddingLeft: cardPadding.left+'px',
+                        paddingRight: cardPadding.right+'px',
+                        }}>  
+
                     { imageUrl &&
                     <img 
                         src={imageUrl} 
@@ -21,8 +32,25 @@ export default function Save({attributes}) {
                     }
                     { name && <RichText.Content tagName="h4" value={name} style={ {color: titleColor} } /> }
                     { bio && <RichText.Content tagName="p" value={bio} style={ {color: bioColor} } /> }
+                            <ul>
+
+                                { enableSocialLinks &&
+
+                                    socialLinks.map( (item, index) => {
+
+                                        return (
+                                                <li key={index}>
+                                                    <a href={item.link}>
+                                                        <Icon style={{color: socialIconsColor}} icon= {item.icon} />
+                                                    </a>
+                                                                                                            
+                                                </li>
+                                        )
+                                    } )
+                                }
+                            </ul>
+                        {/* </div> */}
                 </div>
-            </div>
         </div>
     )
 }

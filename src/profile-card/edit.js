@@ -5,7 +5,7 @@ import { __ } from '@wordpress/i18n';
 
 export default function Edit( {attributes, setAttributes, isSelected} ) {
 
-    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, socialLinks } = attributes;
+    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, enableSocialLinks, socialLinks, socialIconsColor } = attributes;
 
     const onChangeName = ( newName ) => {
         setAttributes( { name: newName } )
@@ -79,20 +79,51 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
         setAttributes( {imageBorder: newBorder} )
     };
 
-    const addNewSocialLink = ( newIcon ) => {
+    const onToggleIcon = ( value ) => {
+        setAttributes( { enableSocialLinks: value } )
+    }
+
+    const addNewSocialLink = () => {
         setAttributes( { 
             socialLinks : [ ...socialLinks, { icon: 'wordpress', link: '' } ]
          } )
     }
 
-    // const [selectedLink, setSelectedLink] = useState(); the next feature
+    const onRemoveSocialIcon = ( num ) => {
+        setAttributes( {
+            socialLinks: [
+                ...socialLinks.slice(0, num),
+                ...socialLinks.slice(num + 1),
+            ],
+        } )
+    }
+
+    const handleLinkChange = (newValue, index) => {
+        const updatedLinks = [...socialLinks];
+        updatedLinks[index].link = newValue;
+        setAttributes({ socialLinks: updatedLinks });
+    };
+
+    const handleIconChange = (newValue, index) => {
+        const updatedLinks = [...socialLinks];
+        updatedLinks[index].icon = newValue;
+        setAttributes({ socialLinks: updatedLinks });
+    };
+
+    const onChangeSocialIconColor = ( newColor ) => {
+        setAttributes( { socialIconsColor: newColor } )
+    };
+
+    const [selectedLink, setSelectedLink] = useState(); 
 
     const [activeTab, setActiveTab] = useState('card container');
     
     return (
         <>
         <InspectorControls>
-            
+
+            <PanelBody title={__('Profile Image')}>
+           
             <div className='editor-post-featured-image'>
                 <MediaUploadCheck>
 
@@ -124,7 +155,7 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
 
                         ? (
                             <MediaUploadCheck>
-                                <Button onClick={onRemoveImage}  isLink isDestructive>
+                                <Button onClick={onRemoveImage}  variant="link" isDestructive>
                                     {__('Remove image', 'profile cards')}
                                 </Button>
                             </MediaUploadCheck>
@@ -142,6 +173,51 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
             value={ imageUrl }
             help={__('Put a valid link here for inserting an image', 'profile-cards')}
         />
+
+      </PanelBody>   
+
+        <PanelBody title={__('Social Icons', 'profile-cards')}>
+
+            <div className='profile-cads-social-icons-controller'>
+
+                <ToggleControl
+                    onChange={ onToggleIcon } 
+                    checked={ enableSocialLinks } 
+                    label={__('Enable Social Icons', 'profile-cards')}
+                />
+
+                { enableSocialLinks && socialLinks.map((item, index)=> {
+
+                   return (
+                    <div className='profile-cads-social-icon-controller'>
+                        <TextControl
+                            label={__('Icon Name', 'profile-cards')}
+                            placeholder= {__('icon name', 'profile-cards')}
+                            value={ item.icon }
+                            onChange={(newValue) => handleIconChange(newValue, index)}
+                        />
+
+                        <TextControl
+                            label={__('Navigation Link', 'profile-cards')}
+                            placeholder= {__('navigation link', 'profile-cards')}
+                            value={ item.link }
+                            onChange={(newValue) => handleLinkChange(newValue, index)}
+                        />
+
+                        <button onClick={() => onRemoveSocialIcon(index)}  className='remove-button'>
+                            {__('Remove Icon', 'profile cards')}
+                        </button>
+
+                    </div>
+                   )
+                })}
+                { enableSocialLinks && 
+                <button onClick={ addNewSocialLink }>{__('Add More Icon', 'profile-cards')}</button>
+                }
+                
+            </div>
+
+        </PanelBody>
 
         <TabPanel
         className="my-tab-panel"
@@ -201,8 +277,21 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                                 />
                 
                                 <PanelBody title={__('Background Color', 'profile-cards')}>
-                
-                                    <ColorPicker enableAlpha value={ bgColor } onChange={ onChangeBgColor } allowReset={true} />
+
+                                    <ColorPalette
+                                        colors={[
+                                            {
+                                              color: '#263961',
+                                              name: 'blue'
+                                            },
+                                            {
+                                              color: '#000',
+                                              name: 'Black'
+                                            }
+                                        ]}
+                                        value={ bgColor }
+                                        onChange={ onChangeBgColor }
+                                    />
                 
                                 </PanelBody>
                             </div>
@@ -306,6 +395,25 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                                />
                             </PanelBody>
 
+                            <PanelBody title={__('Icons Color', 'profile-cards')}>
+                                <ColorPalette
+                                    colors={[
+                                        {
+                                          color: '#fff',
+                                          name: 'white'
+                                        },
+                                        {
+                                          color: '#000',
+                                          name: 'Black'
+                                        }
+                                    ]}
+                                    value={ socialIconsColor }
+                                    onChange={ onChangeSocialIconColor }
+                                />
+                            </PanelBody>
+                           
+                                
+
                             </div>
                         )}
                     </PanelRow>
@@ -314,7 +422,7 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
             
         </InspectorControls>
             <div { ...useBlockProps() } >
-                {/* <div className="profile-card-wrapper"> */}
+
                     <div className={`profile-card align-${align}${hasShadow ? ' has-shadow' : ''}`}  
                       style={{
                          backgroundColor: bgColor, 
@@ -356,38 +464,23 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                             style={ {color: bioColor} }
                         />
 
-                        <div className='wp-block-create-block-profile-cards-socialLinks'>
+                        {/* <div className='wp-block-create-block-profile-cards-socialLinks'> */}
                             <ul>
 
-                                {
+                                { enableSocialLinks &&
+
                                     socialLinks.map( (item, index) => {
 
                                         return (
-
-                                        <li key={index}>
-                                            <Icon style={{color: 'white'}} icon= {item.icon} />
-                                        </li>
-                                        
+                                                <li key={index}>
+                                                        <Icon style={{ color: socialIconsColor }} icon= {item.icon} />                                                    
+                                                </li>
                                         )
                                     } )
-
-
                                 }
-
-                                { isSelected &&
-                                <li className='wp-block-create-block-profile-cards-add-icon-li'>
-                                    <Tooltip text={__('Add Social Icon', 'profile-cards')}>
-                                        <button onClick={ addNewSocialLink } aria-label={__('Add Socia Link', 'profile-cads')}>
-                                            <Icon icon='plus' />
-                                        </button>
-                                    </Tooltip>
-                                </li>
-                                }
-
                             </ul>
-                        </div>
+                        {/* </div> */}
                     </div>
-                {/* </div> */}
             </div>
        </>
     )

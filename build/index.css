@@ -55,16 +55,33 @@
   margin-bottom: 20px;
 }
 
-.wp-block-create-block-profile-cards-socialLinks > ul {
+.profile-cads-social-icons-controller {
   display: flex;
+  flex-direction: column;
   gap: 10px;
 }
-.wp-block-create-block-profile-cards-socialLinks > ul > li {
-  list-style: none;
+.profile-cads-social-icons-controller > .profile-cads-social-icon-controller {
+  background-color: #ffffff;
+  border: 1px solid rgb(1, 69, 146);
+  padding: 10px;
+  border-radius: 5px;
 }
-
-.wp-block-create-block-profile-cards-add-icon-li > button {
+.profile-cads-social-icons-controller > .profile-cads-social-icon-controller > .remove-button {
+  color: rgba(195, 5, 5, 0.877);
+  border: none;
+  border-bottom: 1px solid rgba(195, 5, 5, 0.877);
+  background: none;
   cursor: pointer;
+}
+.profile-cads-social-icons-controller > button {
+  color: rgb(1, 69, 146);
+  background: none;
+  border: 1px solid rgb(1, 69, 146);
+  width: 100px;
+  text-align: center;
+  padding: 5px;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 /*# sourceMappingURL=index.css.map*/

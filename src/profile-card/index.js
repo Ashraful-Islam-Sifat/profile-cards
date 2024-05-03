@@ -26,7 +26,7 @@ import Save from './save';
         },
         bgColor: {
             type: "string",
-            default: "rgb(114, 114, 114)"
+            default: "#42618B"
         },
         imageId: {
             type: "number",
@@ -78,7 +78,8 @@ import Save from './save';
             }
         },
         imageBorderRadius: {
-            type: "number"
+            type: "number",
+            default: 100
         },
         align: {
             type: 'string',
@@ -90,6 +91,10 @@ import Save from './save';
         bioColor: {
             type: 'string'
         },
+        enableSocialLinks: {
+            type: "boolean",
+            default: false
+        },
         socialLinks: {
             type: 'array',
             default: [
@@ -97,6 +102,10 @@ import Save from './save';
                 {link: 'https/:instagram', icon: 'instagram'}
             ]
         },
+        socialIconsColor:{
+            type: 'string',
+            default: '#fff'
+        }
     },
     edit:  Edit,
     save:  Save

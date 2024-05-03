@@ -34,9 +34,28 @@
 			object-fit: cover ;
 			object-position: center top;
 		}
+		>h4{
+			margin: 0;
+			padding: 0;
+		}
 		> p {
 			margin: 0;
 			padding: 0;
+		}
+		> ul {
+			display: flex;
+			gap: 10px;
+			justify-content: center;
+			align-items: center;
+			padding: 0;
+			margin: 0;
+			>li{
+				list-style: none;
+				cursor: pointer;
+				>a{
+					text-decoration: none;
+				}
+			}
 		}
 	}
 }
