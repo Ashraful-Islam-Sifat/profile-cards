@@ -3,7 +3,7 @@ import { Icon } from "@wordpress/components";
 
 export default function Save({attributes}) {
     
-    const { name, bio, bgColor, imageUrl, cardWidth, cardHeight, cardPadding, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, imageBorderRadius, imageWidth, imageHeight, socialLinks, enableSocialLinks, socialIconsColor } = attributes;
+    const { name, bio, bgColor, imageUrl, cardWidth, cardHeight, cardPadding, cardBorderRadius, hasShadow, imageBorder, align, titleColor, bioColor, imageBorderRadius, imageWidth, imageHeight, socialLinks, enableSocialLinks, socialIconsColor, socialIconsGap, gapBetweenContents } = attributes;
 
     return (
         <div {...useBlockProps.save()}>
@@ -17,6 +17,7 @@ export default function Save({attributes}) {
                         paddingBottom: cardPadding.bottom+'px',
                         paddingLeft: cardPadding.left+'px',
                         paddingRight: cardPadding.right+'px',
+                        gap: gapBetweenContents+'px'
                         }}>  
 
                     { imageUrl &&
@@ -32,7 +33,7 @@ export default function Save({attributes}) {
                     }
                     { name && <RichText.Content tagName="h4" value={name} style={ {color: titleColor} } /> }
                     { bio && <RichText.Content tagName="p" value={bio} style={ {color: bioColor} } /> }
-                            <ul>
+                            <ul style={{gap: socialIconsGap}}>
 
                                 { enableSocialLinks &&
 

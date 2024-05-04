@@ -111,8 +111,7 @@ __webpack_require__.r(__webpack_exports__);
 
 function Edit({
   attributes,
-  setAttributes,
-  isSelected
+  setAttributes
 }) {
   const {
     name,
@@ -134,7 +133,9 @@ function Edit({
     cardPadding,
     enableSocialLinks,
     socialLinks,
-    socialIconsColor
+    socialIconsColor,
+    socialIconsGap,
+    gapBetweenContents
   } = attributes;
   const onChangeName = newName => {
     setAttributes({
@@ -266,7 +267,16 @@ function Edit({
       socialIconsColor: newColor
     });
   };
-  const [selectedLink, setSelectedLink] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)();
+  const onChangeIconsGap = newValue => {
+    setAttributes({
+      socialIconsGap: newValue
+    });
+  };
+  const onChangeContentsGap = newValue => {
+    setAttributes({
+      gapBetweenContents: newValue
+    });
+  };
   const [activeTab, setActiveTab] = (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.useState)('card container');
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(react__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.InspectorControls, null, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Profile Image')
@@ -379,7 +389,13 @@ function Edit({
     onChange: onChangeBgColor
   }))), tab.name === 'card contents' && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     className: "pc-tabs-content"
-  }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Gap between contents', 'profile-cards'),
+    min: 10,
+    max: 70,
+    onChange: onChangeContentsGap,
+    value: gapBetweenContents
+  }), imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Settings', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Image Height (px)', 'profile-cards'),
@@ -422,8 +438,8 @@ function Edit({
     max: 100,
     onChange: onChangeImgBorderRadius,
     value: imageBorderRadius
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Title Color', 'profile-cards')
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
+    header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Title Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
     colors: [{
       color: '#fff',
@@ -434,8 +450,8 @@ function Edit({
     }],
     onChange: onChangeTitileColor,
     value: titleColor
-  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bio Color', 'profile-cards')
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
+    header: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Bio Color', 'profile-cards')
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
     colors: [{
       color: '#fff',
@@ -447,7 +463,9 @@ function Edit({
     onChange: onChangeBioColor,
     value: bioColor
   })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.PanelBody, {
-    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Icons Color', 'profile-cards')
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Icons Settings', 'profile-cards')
+  }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Panel, {
+    header: "Icons Color"
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.ColorPalette, {
     colors: [{
       color: '#fff',
@@ -458,6 +476,12 @@ function Edit({
     }],
     value: socialIconsColor,
     onChange: onChangeSocialIconColor
+  })), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_4__.__)('Gap between icons', 'profile-cards'),
+    min: 10,
+    max: 60,
+    onChange: onChangeIconsGap,
+    value: socialIconsGap
   })))))), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ...(0,_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps)()
   }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
@@ -470,7 +494,8 @@ function Edit({
       paddingTop: cardPadding.top + 'px',
       paddingBottom: cardPadding.bottom + 'px',
       paddingLeft: cardPadding.left + 'px',
-      paddingRight: cardPadding.right + 'px'
+      paddingRight: cardPadding.right + 'px',
+      gap: gapBetweenContents + 'px'
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
@@ -498,7 +523,11 @@ function Edit({
     style: {
       color: bioColor
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, enableSocialLinks && socialLinks.map((item, index) => {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    style: {
+      gap: socialIconsGap + 'px'
+    }
+  }, enableSocialLinks && socialLinks.map((item, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       key: index
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Icon, {
@@ -583,6 +612,10 @@ __webpack_require__.r(__webpack_exports__);
         right: 20
       }
     },
+    gapBetweenContents: {
+      type: "number",
+      default: 20
+    },
     hasShadow: {
       type: "boolean",
       default: false
@@ -634,6 +667,10 @@ __webpack_require__.r(__webpack_exports__);
     socialIconsColor: {
       type: 'string',
       default: '#fff'
+    },
+    socialIconsGap: {
+      type: "number",
+      default: 10
     }
   },
   edit: _edit__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -683,7 +720,9 @@ function Save({
     imageHeight,
     socialLinks,
     enableSocialLinks,
-    socialIconsColor
+    socialIconsColor,
+    socialIconsGap,
+    gapBetweenContents
   } = attributes;
   return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("div", {
     ..._wordpress_block_editor__WEBPACK_IMPORTED_MODULE_1__.useBlockProps.save()
@@ -697,7 +736,8 @@ function Save({
       paddingTop: cardPadding.top + 'px',
       paddingBottom: cardPadding.bottom + 'px',
       paddingLeft: cardPadding.left + 'px',
-      paddingRight: cardPadding.right + 'px'
+      paddingRight: cardPadding.right + 'px',
+      gap: gapBetweenContents + 'px'
     }
   }, imageUrl && (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("img", {
     src: imageUrl,
@@ -719,7 +759,11 @@ function Save({
     style: {
       color: bioColor
     }
-  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", null, enableSocialLinks && socialLinks.map((item, index) => {
+  }), (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("ul", {
+    style: {
+      gap: socialIconsGap
+    }
+  }, enableSocialLinks && socialLinks.map((item, index) => {
     return (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("li", {
       key: index
     }, (0,react__WEBPACK_IMPORTED_MODULE_0__.createElement)("a", {

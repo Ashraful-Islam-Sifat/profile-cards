@@ -1,11 +1,11 @@
 import { useBlockProps, RichText, InspectorControls, MediaUpload, MediaUploadCheck } from '@wordpress/block-editor';
-import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, ColorIndicator, __experimentalBoxControl as BoxControl, Button, Icon, Tooltip } from '@wordpress/components'; 
+import { PanelBody, ColorPicker, TextControl, RangeControl, ToggleControl, __experimentalBorderControl as BorderControl, TabPanel, PanelRow, ColorPalette, ColorIndicator, __experimentalBoxControl as BoxControl, Button, Icon, Panel } from '@wordpress/components'; 
 import { useState } from '@wordpress/element';
 import { __ } from '@wordpress/i18n';
 
-export default function Edit( {attributes, setAttributes, isSelected} ) {
+export default function Edit( {attributes, setAttributes} ) {
 
-    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, enableSocialLinks, socialLinks, socialIconsColor } = attributes;
+    const { name, bio, bgColor, imageUrl, imageId, cardBorderRadius, hasShadow, align, titleColor, bioColor, cardHeight, cardWidth, imageBorder, imageBorderRadius, imageHeight, imageWidth, cardPadding, enableSocialLinks, socialLinks, socialIconsColor, socialIconsGap, gapBetweenContents } = attributes;
 
     const onChangeName = ( newName ) => {
         setAttributes( { name: newName } )
@@ -114,7 +114,13 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
         setAttributes( { socialIconsColor: newColor } )
     };
 
-    const [selectedLink, setSelectedLink] = useState(); 
+    const onChangeIconsGap = ( newValue ) => {
+        setAttributes( { socialIconsGap: newValue } )
+    }
+
+    const onChangeContentsGap = ( newValue ) => {
+        setAttributes( { gapBetweenContents: newValue } )
+    }
 
     const [activeTab, setActiveTab] = useState('card container');
     
@@ -299,6 +305,13 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                         {tab.name === 'card contents' && (
                             <div className='pc-tabs-content'>
                                 
+                            <RangeControl 
+                                label= {__('Gap between contents', 'profile-cards')}
+                                min= { 10 }
+                                max={ 70 }
+                                onChange={ onChangeContentsGap }
+                                value={ gapBetweenContents }
+                            />
 
                         { imageUrl &&
                             <PanelBody title={__('Image Settings', 'profile-cards')}>
@@ -361,7 +374,8 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                             </PanelBody>
                             }
 
-                            <PanelBody title={__('Title Color', 'profile-cards')}>
+
+                            <Panel header={__('Title Color', 'profile-cards')}>
                                 <ColorPalette
                                     colors={[
                                         {
@@ -376,9 +390,9 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                                     onChange={ onChangeTitileColor }
                                     value={ titleColor }
                                />
-                            </PanelBody>
+                            </Panel>
 
-                            <PanelBody title={__('Bio Color', 'profile-cards')}>
+                            <Panel header={__('Bio Color', 'profile-cards')}>
                                 <ColorPalette
                                     colors={[
                                         {
@@ -393,27 +407,37 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                                     onChange={ onChangeBioColor }
                                     value={ bioColor }
                                />
-                            </PanelBody>
+                            </Panel>
 
-                            <PanelBody title={__('Icons Color', 'profile-cards')}>
-                                <ColorPalette
-                                    colors={[
-                                        {
-                                          color: '#fff',
-                                          name: 'white'
-                                        },
-                                        {
-                                          color: '#000',
-                                          name: 'Black'
-                                        }
-                                    ]}
-                                    value={ socialIconsColor }
-                                    onChange={ onChangeSocialIconColor }
+                            <PanelBody title={__('Icons Settings', 'profile-cards')}>
+
+                                <Panel header='Icons Color'>
+                                    <ColorPalette
+                                        colors={[
+                                            {
+                                              color: '#fff',
+                                              name: 'white'
+                                            },
+                                            {
+                                              color: '#000',
+                                              name: 'Black'
+                                            }
+                                        ]}
+                                        value={ socialIconsColor }
+                                        onChange={ onChangeSocialIconColor }
+                                    />
+                                </Panel>
+
+                                <RangeControl 
+                                    label= {__('Gap between icons', 'profile-cards')}
+                                    min= { 10 }
+                                    max={ 60 }
+                                    onChange={ onChangeIconsGap }
+                                    value={ socialIconsGap }
                                 />
+                                
                             </PanelBody>
                            
-                                
-
                             </div>
                         )}
                     </PanelRow>
@@ -433,6 +457,7 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                          paddingBottom: cardPadding.bottom+'px',
                          paddingLeft: cardPadding.left+'px',
                          paddingRight: cardPadding.right+'px',
+                         gap: gapBetweenContents+'px'
                          }}
                     >                    
                         { imageUrl && 
@@ -465,12 +490,11 @@ export default function Edit( {attributes, setAttributes, isSelected} ) {
                         />
 
                         {/* <div className='wp-block-create-block-profile-cards-socialLinks'> */}
-                            <ul>
+                            <ul style={{gap: socialIconsGap+'px'}}>
 
                                 { enableSocialLinks &&
 
                                     socialLinks.map( (item, index) => {
-
                                         return (
                                                 <li key={index}>
                                                         <Icon style={{ color: socialIconsColor }} icon= {item.icon} />                                                    

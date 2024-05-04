@@ -57,6 +57,10 @@ import Save from './save';
                 right: 20
             }
         },
+        gapBetweenContents:{
+            type: "number",
+            default: 20
+        },
         hasShadow: {
             type: "boolean",
             default: false
@@ -105,6 +109,10 @@ import Save from './save';
         socialIconsColor:{
             type: 'string',
             default: '#fff'
+        },
+        socialIconsGap: {
+            type: "number",
+            default: 10
         }
     },
     edit:  Edit,
